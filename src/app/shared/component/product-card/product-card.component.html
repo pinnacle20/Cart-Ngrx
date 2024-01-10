@@ -1,0 +1,10 @@
+<div class="w-60 h-92 rounded-3xl bg-white flex flex-center flex-col p-6 gap-2">
+    <div class="w-full flex justify-center">
+        <img class="w-40 h-40 bg-gray-300 " style="object-fit:contain" src={{item.image}} alt="product-image">
+    </div>
+    <div class="font-bold">{{item.title.substring(0,40)}}...</div>
+    <div class="h-[120px]">{{item.description.substring(0,100)}}...</div>
+    <div class="w-16 rounded-full flex items-center justify-center bg-gray-200 font-bold">${{item.price}}</div>
+    <button class="w-full font-bold text-white bg-green-600">Add to Cart</button>
+    <button class="w-full font-bold text-white bg-yellow-600">View Product</button>
+</div>

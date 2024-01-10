@@ -1,0 +1,5 @@
+<div class="w-full h-full bg-gray-800 flex flex-center flex-wrap gap-12">
+    <div *ngFor="let item of product$|async">
+        <app-product-card [item]="item"></app-product-card>
+    </div>
+</div>
