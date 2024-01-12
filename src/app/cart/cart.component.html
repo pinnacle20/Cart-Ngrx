@@ -45,11 +45,14 @@
                                         </div>
                                     </div>
                                     <div class="absolute top-0 flex gap-10 right-0 flex sm:bottom-0 sm:top-auto">
-                                        <button class="text-base text-gray-900 hover:text-green-900 hover:font-semibold"
-                                            type="button">Add
+                                        <button (click)="incProduct(item.id)" class="text-base text-gray-900 hover:text-green-900 hover:font-bold"
+                                            type="button">+
+                                        </button>
+                                        <button (click)="decProduct(item.id)" class="text-base text-gray-900 hover:text-green-900 hover:font-bold"
+                                            type="button">-
                                         </button>
                                         <button class="text-base text-gray-900  hover:text-red-900 hover:font-semibold"
-                                            type="button" (click)="removeItem(item)">Remove</button>
+                                            type="button" (click)="removeItem(item.id)">Remove</button>
                                     </div>
                                 </div>
                             </li>
