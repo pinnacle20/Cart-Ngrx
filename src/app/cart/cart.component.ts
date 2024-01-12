@@ -19,7 +19,7 @@ export class CartComponent implements OnInit {
   cartItems$ = this.store.select(selectCartProducts);
   ngOnInit(): void {}
   removeItem(product: IProduct) {
-    const productId = product.id
-    this.store.dispatch(removeProduct({productId}));
+    const productId = product.id;
+    this.store.dispatch(removeProduct({ productId }));
   }
 }
