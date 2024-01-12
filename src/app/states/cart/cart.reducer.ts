@@ -18,7 +18,14 @@ export const initialCartState: CartState = {
 export const cartReducer = createReducer(
   initialCartState,
   on(addToCart, (state, { product }) => {
-    const updatedProducts = [...state.products, product];
+    let updatedProducts: IProduct[] = [];
+    if (state.products.some((item) => item.id === product.id)) {
+      updatedProducts = state.products.map((item) =>
+        item.id === product.id
+          ? { ...item, quantity: item.quantity + 1 }
+          : product
+      );
+    } else updatedProducts = [...state.products, product];
     return { ...state, products: updatedProducts };
   }),
   on(incrementProduct, (state, { productId }) => {
@@ -38,12 +45,10 @@ export const cartReducer = createReducer(
     return { ...state, products: updatedProducts };
   }),
   on(removeProduct, (state, { productId }) => {
-    console.log('Product id to remove ', productId);
     const updatedProducts = state.products.filter((product) => {
       if (product.id != productId) return true;
       else return false;
     });
-    console.log('New Products- ', updatedProducts);
     return { ...state, products: updatedProducts };
   })
 );

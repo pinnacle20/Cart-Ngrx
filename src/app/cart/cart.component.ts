@@ -22,7 +22,7 @@ export class CartComponent implements OnInit {
   constructor(private store: Store<AppState>) {}
   cartItems$ = this.store.select(selectCartProducts);
   ngOnInit(): void {}
-  removeItem(productId) {
+  removeItem(productId: number) {
     this.store.dispatch(removeProduct({ productId }));
   }
   incProduct(productId: number) {
