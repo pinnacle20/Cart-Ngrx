@@ -11,7 +11,6 @@ import { IProduct } from '../../../products/models/product.interface';
   styleUrl: './product-card.component.css',
 })
 export class ProductCardComponent {
-
   @Input() item!: IProduct;
   @Output() handleAdd: EventEmitter<any> = new EventEmitter();
 

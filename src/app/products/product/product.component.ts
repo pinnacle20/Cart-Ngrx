@@ -7,7 +7,6 @@ import { ProductApiService } from '../../shared/services/product-api.service';
 import { log } from 'console';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../states/app.state';
-// import { selectCartProducts } from '../../states/cart/cart.selector';
 import { addToCart } from '../../states/cart/cart.action';
 import { selectCartProducts } from '../../states/cart/cart.selector';
 import { RouterModule } from '@angular/router';
