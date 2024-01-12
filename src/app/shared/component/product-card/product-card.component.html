@@ -5,6 +5,7 @@
     <div class="font-bold">{{item.title.substring(0,40)}}...</div>
     <div class="h-[120px]">{{item.description.substring(0,100)}}...</div>
     <div class="w-16 rounded-full flex items-center justify-center bg-gray-200 font-bold">${{item.price}}</div>
-    <button class="w-full font-bold text-white bg-green-600">Add to Cart</button>
-    <button class="w-full font-bold text-white bg-yellow-600">View Product</button>
+    <button type="button" (click)="addToCart(item)" class="w-full font-bold text-white bg-green-600">Add to
+        Cart</button>
+    <button type="button" class="w-full font-bold text-white bg-yellow-600">View Product</button>
 </div>

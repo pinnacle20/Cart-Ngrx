@@ -1,0 +1,8 @@
+<header class="w-full h-[50px] p-[10px] bg-black flex items-center">
+    <div class="relative text-2xl w-full text-white"> Cart App </div>
+    <a class="text-white font-bold" type="button" routerLink="/products">Products</a>
+</header>
+<p>cart works!</p>
+<span>
+    {{ cartItems$ | async | json}}
+</span>

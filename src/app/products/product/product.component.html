@@ -1,5 +1,12 @@
-<div class="w-full h-full bg-gray-800 flex flex-center flex-wrap gap-12">
+<header class="w-full h-[50px] p-[10px] bg-black flex items-center sticky top-0">
+    <div class="relative text-2xl w-full ml-[10px] text-white"> Cart App </div>
+    <button class="text-white font-bold" type="button" routerLink="/cart" routerLinkActive="active"
+        type="button">Cart</button>
+    <span class="pl-4 pr-4 text-white font-bold">{{(productItems$ | async)?.length}}</span>
+
+</header>
+<div class="pt-10 w-full h-full bg-gray-800 flex flex-center flex-wrap gap-12">
     <div *ngFor="let item of product$|async">
-        <app-product-card [item]="item"></app-product-card>
+        <app-product-card [item]="item" (handleAdd)="addItemToCart($event)"></app-product-card>
     </div>
 </div>
