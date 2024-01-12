@@ -23,9 +23,9 @@ export const cartReducer = createReducer(
       updatedProducts = state.products.map((item) =>
         item.id === product.id
           ? { ...item, quantity: item.quantity + 1 }
-          : product
+          : item
       );
-    } else updatedProducts = [...state.products, product];
+    } else updatedProducts = [...state.products, { ...product, quantity: 1 }];
     return { ...state, products: updatedProducts };
   }),
   on(incrementProduct, (state, { productId }) => {
