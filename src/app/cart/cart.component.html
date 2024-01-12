@@ -1,15 +1,14 @@
-<header class="w-full h-[50px] p-[10px] bg-black flex items-center">
+<header class="w-full h-[50px] p-[10px] bg-black flex items-center  sticky top-0" style="z-index: 1;">
     <div class="relative text-2xl w-full text-white"> Cart App </div>
     <a class="text-white font-bold mr-4" type="button" routerLink="/products">Products</a>
 </header>
-<section class="h-screen bg-gray-100 py-6">
-    <div class="mx-auto px-4 sm:px-6 lg:px-8">
+<div class="absolute w-full h-full pt-3 bg-gray-800">
+    <div class="mx-auto px-4 sm:px-6 lg:px-8 bg-gray-800">
         <div class="flex items-center justify-center">
-            <h1 class="text-3xl font-semibold text-gray-900">Your Cart</h1>
+            <h1 class="text-3xl font-semibold text-white">Your Cart</h1>
         </div>
-
-        @if (((cartItems$|async)?.length)===0) {
-        <div class="mx-auto mt-4 max-w-md md:mt-12">
+        @if(((cartItems$|async)?.length) === 0) {
+        <div class="mx-auto max-w-md md:mt-4">
             <div class="rounded-3xl bg-white shadow-lg">
                 <div class="px-4 py-6 sm:px-8 sm:py-10">
                     <div class="flow-root text-black text-center"> Please add something to the cart !!</div>
@@ -18,11 +17,11 @@
         </div>
         }
         @else{
-        <div class="mx-auto mt-4 max-w-md md:mt-12">
+        <div class="mx-auto w-[800px] max-w-md md:mt-4">
             <div class="rounded-3xl bg-white shadow-lg">
                 <div class="px-4 py-6 sm:px-8 sm:py-10">
-                    <div class="flow-root">
-                        <ul class="-my-8" *ngFor="let item of cartItems$|async">
+                    <div class="flow-root w-full h-[300px] overflow-auto" id="content">
+                        <ul *ngFor="let item of cartItems$|async">
                             <li class=" flex flex-col space-y-3 py-6 text-left sm:flex-row sm:space-x-5 sm:space-y-0">
                                 <div class="shrink-0 relative">
                                     <span
@@ -88,4 +87,4 @@
         </div>
         }
     </div>
-</section>
+</div>
