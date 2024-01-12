@@ -38,9 +38,12 @@ export const cartReducer = createReducer(
   //   return { ...state, products: updatedProducts };
   // }),
   on(removeProduct, (state, { productId }) => {
+    console.log('Product id to remove ', productId);
     const updatedProducts = state.products.filter((product) => {
-      product.id != productId;
+      if(product.id != productId) return true;
+      else return false;
     });
+    console.log('New Products- ', updatedProducts);
     return { ...state, products: updatedProducts };
   })
 );
