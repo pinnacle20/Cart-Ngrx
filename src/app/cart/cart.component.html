@@ -45,10 +45,12 @@
                                         </div>
                                     </div>
                                     <div class="absolute top-0 flex gap-10 right-0 flex sm:bottom-0 sm:top-auto">
-                                        <button (click)="incProduct(item.id)" class="text-base text-gray-900 hover:text-green-900 hover:font-bold"
+                                        <button (click)="incProduct(item.id)"
+                                            class="text-base text-gray-900 hover:text-green-900 hover:font-bold"
                                             type="button">+
                                         </button>
-                                        <button (click)="decProduct(item.id)" class="text-base text-gray-900 hover:text-green-900 hover:font-bold"
+                                        <button (click)="decProduct(item.id)"
+                                            class="text-base text-gray-900 hover:text-green-900 hover:font-bold"
                                             type="button">-
                                         </button>
                                         <button class="text-base text-gray-900  hover:text-red-900 hover:font-semibold"
@@ -62,17 +64,17 @@
                     <div class="mt-6 space-y-3 border-t border-b py-8">
                         <div class="flex items-center justify-between">
                             <p class="text-gray-400">Subtotal</p>
-                            <p class="text-lg font-semibold text-gray-900">₹2399.00</p>
+                            <p class="text-lg font-semibold text-gray-900">₹{{cartTotal$ | async}}</p>
                         </div>
                         <div class="flex items-center justify-between">
-                            <p class="text-gray-400">Shipping</p>
-                            <p class="text-lg font-semibold text-gray-900">₹8.00</p>
+                            <p class="text-gray-400">Shipping Charge</p>
+                            <p class="text-lg font-semibold text-gray-900">₹0.00</p>
                         </div>
                     </div>
                     <div class="mt-6 flex items-center justify-between">
                         <p class="text-sm font-medium text-gray-900">Total</p>
                         <p class="text-2xl font-semibold text-gray-900"><span
-                                class="text-xs font-normal text-gray-400">INR</span> 2499.00</p>
+                                class="text-xs font-normal text-gray-400">INR{{cartTotal$ | async}}</span> </p>
                     </div>
 
                     <div class="mt-6 text-center">

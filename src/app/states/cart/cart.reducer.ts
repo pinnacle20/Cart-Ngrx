@@ -9,10 +9,12 @@ import {
 
 export interface CartState {
   products: IProduct[];
+  total: number;
 }
 
 export const initialCartState: CartState = {
   products: [],
+  total: 0,
 };
 
 export const cartReducer = createReducer(
@@ -21,34 +23,60 @@ export const cartReducer = createReducer(
     let updatedProducts: IProduct[] = [];
     if (state.products.some((item) => item.id === product.id)) {
       updatedProducts = state.products.map((item) =>
-        item.id === product.id
-          ? { ...item, quantity: item.quantity + 1 }
-          : item
+        item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
       );
     } else updatedProducts = [...state.products, { ...product, quantity: 1 }];
-    return { ...state, products: updatedProducts };
+    const updatedTotal = +(state.total + product.price).toFixed(2);
+    return { ...state, products: updatedProducts, total: updatedTotal };
   }),
+
   on(incrementProduct, (state, { productId }) => {
     const updatedProducts = state.products.map((product) =>
       product.id === productId
         ? { ...product, quantity: product.quantity + 1 }
         : product
     );
-    return { ...state, products: updatedProducts };
+    const targetProduct = state.products.find(
+      (product) => product.id === productId
+    )!;
+    const updatedTotal = +(state.total + targetProduct.price).toFixed(2);
+
+    return { ...state, products: updatedProducts, total: updatedTotal };
   }),
+
   on(decrementProduct, (state, { productId }) => {
-    const updatedProducts = state.products.map((product) =>
+    let updatedProducts = state.products.map((product) =>
       product.id === productId
         ? { ...product, quantity: product.quantity - 1 }
         : product
     );
-    return { ...state, products: updatedProducts };
+    const targetProduct = state.products.find(
+      (product) => product.id === productId
+    )!;
+    const updatedTotal = +(state.total - targetProduct.price).toFixed(2);
+    if (targetProduct.quantity == 1) {
+      console.log('Target Product is now null');
+      updatedProducts = state.products.filter((item) => productId != item.id);
+
+    }
+    return { ...state, products: updatedProducts, total: updatedTotal };
   }),
+
   on(removeProduct, (state, { productId }) => {
-    const updatedProducts = state.products.filter((product) => {
-      if (product.id != productId) return true;
-      else return false;
-    });
-    return { ...state, products: updatedProducts };
+    // const updatedProducts = state.products.filter((product) => {
+    //   if (product.id != productId) return true;
+    //   else return false;
+    // });
+    const updatedProducts = state.products.filter(
+      (item) => productId != item.id
+    );
+    const targetProduct = state.products.find(
+      (product) => product.id === productId
+    )!;
+    const updatedTotal = +(
+      state.total -
+      targetProduct.quantity * targetProduct.price
+    ).toFixed(2);
+    return { ...state, products: updatedProducts, total: updatedTotal };
   })
 );
