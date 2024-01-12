@@ -63,10 +63,6 @@ export const cartReducer = createReducer(
   }),
 
   on(removeProduct, (state, { productId }) => {
-    // const updatedProducts = state.products.filter((product) => {
-    //   if (product.id != productId) return true;
-    //   else return false;
-    // });
     const updatedProducts = state.products.filter(
       (item) => productId != item.id
     );
