@@ -18,10 +18,10 @@ export const initialCartState: CartState = {
 };
 
 export function calculateTotalPrice(products: IProduct[]) {
-  return products.reduce(
+  return +products.reduce(
     (total, product) => total + product.price * product.quantity,
     0
-  );
+  ).toFixed(2);
 }
 
 export const cartReducer = createReducer(
