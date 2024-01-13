@@ -36,12 +36,15 @@ export class ProductComponent implements OnInit {
     console.log('Added- ', product);
     this.store.dispatch(addToCart({ product }));
   }
-
   filterProduct() {
-    this.product$ = this.product$.pipe(
-      map((items) =>
-        items.filter((item) => item.title.includes(this.searchText))
-      )
-    );
+    if (this.searchText.length != 0) {
+      this.product$ = this.product$.pipe(
+        map((items) =>
+          items.filter((item) =>
+            item.title.toLowerCase().includes(this.searchText.toLowerCase())
+          )
+        )
+      );
+    }
   }
 }
