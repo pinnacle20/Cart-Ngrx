@@ -7,7 +7,7 @@
     <span class="pl-4 pr-4 text-white font-bold">{{(productItems$ | async)?.length}}</span>
 
 </header>
-<div class="pt-10 w-full h-full bg-gray-800 flex flex-center flex-wrap gap-12">
+<div class="pt-10 w-full h-full bg-gray-800 flex justify-evenly flex-wrap gap-12">
     <div *ngFor="let item of product$|async">
         <app-product-card [item]="item" (handleAdd)="addItemToCart($event)"></app-product-card>
     </div>
