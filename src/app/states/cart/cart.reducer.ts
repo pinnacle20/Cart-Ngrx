@@ -18,10 +18,9 @@ export const initialCartState: CartState = {
 };
 
 export function calculateTotalPrice(products: IProduct[]) {
-  return +products.reduce(
-    (total, product) => total + product.price * product.quantity,
-    0
-  ).toFixed(2);
+  return +products
+    .reduce((total, product) => total + product.price * product.quantity, 0)
+    .toFixed(2);
 }
 
 export const cartReducer = createReducer(
@@ -59,7 +58,8 @@ export const cartReducer = createReducer(
     return {
       ...state,
       products: updatedProducts,
-      total: calculateTotalPrice(updatedProducts)}
+      total: calculateTotalPrice(updatedProducts),
+    };
   }),
 
   on(decrementProduct, (state, { productId }) => {
