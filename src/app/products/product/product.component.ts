@@ -30,7 +30,8 @@ export class ProductComponent implements OnInit {
   productapi = inject(ProductApiService);
   productItems$: Observable<IProduct[]>;
   product$ = this.productapi.getProducts();
-  searchText: any;
+  searchText: String = '';
+  filterText: String = '';
 
   // Pagination
   allProducts: IProduct[] = [];
@@ -38,6 +39,7 @@ export class ProductComponent implements OnInit {
   pageSize = 5;
   pageSizeOptions = [5, 10, 15, 20];
   length: number = -1;
+  PaginationOption: boolean = false;
 
   constructor(private store: Store<AppState>) {
     this.productItems$ = this.store.select(selectCartProducts);
@@ -50,7 +52,6 @@ export class ProductComponent implements OnInit {
     if (endIndex > this.allProducts.length) {
       endIndex = this.allProducts.length;
     }
-    console.log(startIndex, ' ', endIndex);
     this.activeProducts = this.allProducts.slice(startIndex, endIndex);
   }
 
@@ -58,21 +59,36 @@ export class ProductComponent implements OnInit {
     this.product$.subscribe((products) => (this.allProducts = products));
     this.activeProducts = this.allProducts.slice(0, this.pageSize);
     this.length = this.allProducts.length;
+    this.filterText = 'none';
+    console.log(this.allProducts);
   }
 
   addItemToCart(product: IProduct) {
-    console.log('Added- ', product);
     this.store.dispatch(addToCart({ product }));
   }
+
   filterProduct() {
+    console.log(this.filterText);
     if (this.searchText.length != 0) {
-      this.product$ = this.product$.pipe(
-        map((items) =>
-          items.filter((item) =>
-            item.title.toLowerCase().includes(this.searchText.toLowerCase())
-          )
-        )
-      );
+      this.PaginationOption = true;
+      if (this.filterText === 'title') {
+        this.activeProducts = this.allProducts.filter((item) =>
+          item.title.toLowerCase().includes(this.searchText.toLowerCase())
+        );
+      }
+      if (this.filterText === 'description') {
+        this.activeProducts = this.allProducts.filter((item) =>
+          item.description.toLowerCase().includes(this.searchText.toLowerCase())
+        );
+      }
+      if (this.filterText === 'category') {
+        this.activeProducts = this.allProducts.filter((item) =>
+          item.category.toLowerCase().includes(this.searchText.toLowerCase())
+        );
+      }
+    } else {
+      this.PaginationOption = false;
+      this.activeProducts = this.allProducts.slice(0, this.pageSize);
     }
   }
 }
