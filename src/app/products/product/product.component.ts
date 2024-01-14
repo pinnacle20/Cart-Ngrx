@@ -43,7 +43,7 @@ export class ProductComponent implements OnInit {
   PaginationOption: boolean = false;
 
 
-  // Issue - Cart to Product component : Nothing visible
+  // Issue #1 - Cart to Product component : Nothing visible
   constructor(private store: Store<AppState>, private router: Router) {
     this.productItems$ = this.store.select(selectCartProducts);
     this.router.events.subscribe((event) => {
