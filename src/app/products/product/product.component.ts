@@ -11,12 +11,18 @@ import { addToCart } from '../../states/cart/cart.action';
 import { selectCartProducts } from '../../states/cart/cart.selector';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { fileURLToPath } from 'url';
+import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-product',
   standalone: true,
-  imports: [CommonModule, ProductCardComponent, RouterModule, FormsModule],
+  imports: [
+    CommonModule,
+    ProductCardComponent,
+    RouterModule,
+    FormsModule,
+    MatPaginatorModule,
+  ],
   templateUrl: './product.component.html',
   styleUrl: './product.component.css',
 })
@@ -26,11 +32,33 @@ export class ProductComponent implements OnInit {
   product$ = this.productapi.getProducts();
   searchText: any;
 
+  // Pagination
+  allProducts: IProduct[] = [];
+  activeProducts: IProduct[] = [];
+  pageSize = 5;
+  pageSizeOptions = [5, 10, 15, 20];
+  length: number = -1;
+
   constructor(private store: Store<AppState>) {
     this.productItems$ = this.store.select(selectCartProducts);
   }
 
-  ngOnInit(): void {}
+  OnPageChange(event: PageEvent) {
+    console.log('event -', event);
+    let startIndex = event.pageIndex * event.pageSize;
+    let endIndex = startIndex + event.pageSize;
+    if (endIndex > this.allProducts.length) {
+      endIndex = this.allProducts.length;
+    }
+    console.log(startIndex, ' ', endIndex);
+    this.activeProducts = this.allProducts.slice(startIndex, endIndex);
+  }
+
+  ngOnInit(): void {
+    this.product$.subscribe((products) => (this.allProducts = products));
+    this.activeProducts = this.allProducts.slice(0, this.pageSize);
+    this.length = this.allProducts.length;
+  }
 
   addItemToCart(product: IProduct) {
     console.log('Added- ', product);

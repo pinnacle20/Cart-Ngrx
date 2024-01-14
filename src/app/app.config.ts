@@ -10,6 +10,7 @@ import {
 } from '@angular/common/http';
 import { provideState, provideStore } from '@ngrx/store';
 import { cartReducer } from './states/cart/cart.reducer';
+import { provideNoopAnimations } from '@angular/platform-browser/animations';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -18,6 +19,7 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(withFetch()),
     provideStore(),
     provideState({ name: 'cart', reducer: cartReducer }),
-  ],
+    provideNoopAnimations()
+],
   
 };

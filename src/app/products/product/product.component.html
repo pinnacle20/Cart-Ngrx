@@ -8,7 +8,12 @@
 
 </header>
 <div class="pt-10 w-full h-full bg-gray-800 flex justify-evenly flex-wrap gap-12">
-    <div *ngFor="let item of product$|async">
+    <div *ngFor="let item of activeProducts">
         <app-product-card [item]="item" (handleAdd)="addItemToCart($event)"></app-product-card>
     </div>
+</div>
+<div class="relative w-full bottom-0">
+    <mat-paginator #paginator [length]="length" [pageSize]="pageSize"
+        [pageSizeOptions]="pageSizeOptions" aria-label="Select page" (page)="OnPageChange($event)">
+    </mat-paginator>
 </div>
