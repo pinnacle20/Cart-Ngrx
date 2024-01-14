@@ -73,7 +73,6 @@ export const cartReducer = createReducer(
     )!;
     // const updatedTotal = +(state.total - targetProduct.price).toFixed(2);
     if (targetProduct.quantity == 1) {
-      console.log('Target Product is now null');
       updatedProducts = state.products.filter((item) => productId != item.id);
     }
     // return { ...state, products: updatedProducts, total: updatedTotal };

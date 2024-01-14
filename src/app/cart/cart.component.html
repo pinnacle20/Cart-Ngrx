@@ -1,5 +1,5 @@
 <header class="w-full h-[50px] p-[10px] bg-black flex items-center  sticky top-0" style="z-index: 1; position:fixed;">
-    <div class="relative text-2xl w-full text-white"> Cart App </div>
+    <div class="relative text-2xl w-full  ml-[10px] text-white"> Cart App </div>
     <a class="text-white font-bold mr-4" type="button" routerLink="/products">Products</a>
 </header>
 <div class="absolute w-full h-full pt-3 bg-gray-800">
@@ -74,7 +74,6 @@
                     <div class="mt-6 flex items-center justify-between">
                         <p class="text-sm font-medium text-gray-900">Total</p>
                         <p class="text-xl font-semibold text-gray-900">{{cartTotal$ | async}}
-                            <!-- <span class="text-xs font-normal "> {{cartTotal$ | async}}</span> -->
                         </p>
                     </div>
 

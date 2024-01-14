@@ -9,9 +9,10 @@ import { Store } from '@ngrx/store';
 import { AppState } from '../../states/app.state';
 import { addToCart } from '../../states/cart/cart.action';
 import { selectCartProducts } from '../../states/cart/cart.selector';
-import { RouterModule } from '@angular/router';
+import { NavigationEnd, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-product',
@@ -41,12 +42,20 @@ export class ProductComponent implements OnInit {
   length: number = -1;
   PaginationOption: boolean = false;
 
-  constructor(private store: Store<AppState>) {
+
+  // Issue - Cart to Product component : Nothing visible
+  constructor(private store: Store<AppState>, private router: Router) {
     this.productItems$ = this.store.select(selectCartProducts);
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd && event.url.includes('product')) {
+        console.log('Navigated to product component');
+        this.activeProducts = this.allProducts.slice(0, this.pageSize);
+        console.log(this.activeProducts);
+      }
+    });
   }
 
   OnPageChange(event: PageEvent) {
-    console.log('event -', event);
     let startIndex = event.pageIndex * event.pageSize;
     let endIndex = startIndex + event.pageSize;
     if (endIndex > this.allProducts.length) {
@@ -60,7 +69,6 @@ export class ProductComponent implements OnInit {
     this.activeProducts = this.allProducts.slice(0, this.pageSize);
     this.length = this.allProducts.length;
     this.filterText = 'none';
-    console.log(this.allProducts);
   }
 
   addItemToCart(product: IProduct) {
@@ -68,7 +76,6 @@ export class ProductComponent implements OnInit {
   }
 
   filterProduct() {
-    console.log(this.filterText);
     if (this.searchText.length != 0) {
       this.PaginationOption = true;
       if (this.filterText === 'title') {
